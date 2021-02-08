@@ -1053,7 +1053,7 @@ void ShapesApp::BuildShapeGeometry()
 
 	GeometryGenerator::MeshData box = geoGen.CreateBox(1.0f, 1.0f, 1.0f, 0);
 
-	GeometryGenerator::MeshData grid = geoGen.CreateGrid(20.0f, 30.0f, 60, 40);
+	GeometryGenerator::MeshData grid = geoGen.CreateGrid(30.0f, 30.0f, 60, 40);
 
 	GeometryGenerator::MeshData sphere = geoGen.CreateSphere(0.5f, 20, 20);
 
@@ -1398,48 +1398,70 @@ void ShapesApp::BuildFrameResources()
 void ShapesApp::BuildRenderItems()
 
 {
+	auto cylinderRitem2 = std::make_unique<RenderItem>();
+	XMStoreFloat4x4(&cylinderRitem2->World, XMMatrixScaling(3.0f, 2.0f, 3.0f) * XMMatrixTranslation(-15.0f, 3.0f, 15.0f));
+	cylinderRitem2->ObjCBIndex = 3;
+	cylinderRitem2->Geo = mGeometries["shapeGeo"].get();
+	cylinderRitem2->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	cylinderRitem2->IndexCount = cylinderRitem2->Geo->DrawArgs["cylinder"].IndexCount;  //2520
+	cylinderRitem2->StartIndexLocation = cylinderRitem2->Geo->DrawArgs["cylinder"].StartIndexLocation; //0
+	cylinderRitem2->BaseVertexLocation = cylinderRitem2->Geo->DrawArgs["cylinder"].BaseVertexLocation; //0
+	mAllRitems.push_back(std::move(cylinderRitem2));
+
+	auto cylinderRitem = std::make_unique<RenderItem>();
+	XMStoreFloat4x4(&cylinderRitem->World, XMMatrixScaling(3.0f, 2.0f, 3.0f) * XMMatrixTranslation(15.0f, 3.0f, -15.0f));
+	cylinderRitem->ObjCBIndex = 4;
+	cylinderRitem->Geo = mGeometries["shapeGeo"].get();
+	cylinderRitem->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	cylinderRitem->IndexCount = cylinderRitem->Geo->DrawArgs["cylinder"].IndexCount;  //2520
+	cylinderRitem->StartIndexLocation = cylinderRitem->Geo->DrawArgs["cylinder"].StartIndexLocation; //0
+	cylinderRitem->BaseVertexLocation = cylinderRitem->Geo->DrawArgs["cylinder"].BaseVertexLocation; //0
+	mAllRitems.push_back(std::move(cylinderRitem));
+
+	auto cylinderRitem3 = std::make_unique<RenderItem>();
+	XMStoreFloat4x4(&cylinderRitem3->World, XMMatrixScaling(3.0f, 2.0f, 3.0f) * XMMatrixTranslation(15.0f, 3.0f, 15.0f));
+	cylinderRitem3->ObjCBIndex = 0;
+	cylinderRitem3->Geo = mGeometries["shapeGeo"].get();
+	cylinderRitem3->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	cylinderRitem3->IndexCount = cylinderRitem3->Geo->DrawArgs["cylinder"].IndexCount;  //2520
+	cylinderRitem3->StartIndexLocation = cylinderRitem3->Geo->DrawArgs["cylinder"].StartIndexLocation; //0
+	cylinderRitem3->BaseVertexLocation = cylinderRitem3->Geo->DrawArgs["cylinder"].BaseVertexLocation; //0
+	mAllRitems.push_back(std::move(cylinderRitem3));
+
+	auto cylinderRitem4 = std::make_unique<RenderItem>();
+	XMStoreFloat4x4(&cylinderRitem4->World, XMMatrixScaling(3.0f, 2.0f, 3.0f) * XMMatrixTranslation(-15.0f, 3.0f, -15.0f));
+	cylinderRitem4->ObjCBIndex = 5;
+	cylinderRitem4->Geo = mGeometries["shapeGeo"].get();
+	cylinderRitem4->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	cylinderRitem4->IndexCount = cylinderRitem4->Geo->DrawArgs["cylinder"].IndexCount;  //2520
+	cylinderRitem4->StartIndexLocation = cylinderRitem4->Geo->DrawArgs["cylinder"].StartIndexLocation; //0
+	cylinderRitem4->BaseVertexLocation = cylinderRitem4->Geo->DrawArgs["cylinder"].BaseVertexLocation; //0
+	mAllRitems.push_back(std::move(cylinderRitem4));
+
+	auto box2Ritem = std::make_unique<RenderItem>();
+	XMStoreFloat4x4(&box2Ritem->World, XMMatrixScaling(10.0f, 5.0f, 0.5f) * XMMatrixTranslation(10.0f, 2.5f, -15.0f));
+	box2Ritem->ObjCBIndex = 1;
+	box2Ritem->Geo = mGeometries["shapeGeo"].get();
+	box2Ritem->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+	box2Ritem->IndexCount = box2Ritem->Geo->DrawArgs["box"].IndexCount;
+	box2Ritem->StartIndexLocation = box2Ritem->Geo->DrawArgs["box"].StartIndexLocation;
+	box2Ritem->BaseVertexLocation = box2Ritem->Geo->DrawArgs["box"].BaseVertexLocation;
+	mAllRitems.push_back(std::move(box2Ritem));
 
 	auto boxRitem = std::make_unique<RenderItem>();
-
-	XMStoreFloat4x4(&boxRitem->World, XMMatrixScaling(2.0f, 2.0f, 2.0f) * XMMatrixTranslation(0.0f, 0.5f, 0.0f));
-
-	boxRitem->ObjCBIndex = 0;
-
+	XMStoreFloat4x4(&boxRitem->World, XMMatrixScaling(10.0f, 5.0f, 0.5f) * XMMatrixTranslation(-10.0f, 2.5f, -15.0f));
+	boxRitem->ObjCBIndex = 6;
 	boxRitem->Geo = mGeometries["shapeGeo"].get();
-
 	boxRitem->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-
 	boxRitem->IndexCount = boxRitem->Geo->DrawArgs["box"].IndexCount;
-
 	boxRitem->StartIndexLocation = boxRitem->Geo->DrawArgs["box"].StartIndexLocation;
-
 	boxRitem->BaseVertexLocation = boxRitem->Geo->DrawArgs["box"].BaseVertexLocation;
-
 	mAllRitems.push_back(std::move(boxRitem));
 
 
+	
 
 
-
-
-
-	auto box2Ritem = std::make_unique<RenderItem>();
-
-	XMStoreFloat4x4(&box2Ritem->World, XMMatrixScaling(2.0f, 2.0f, 2.0f) * XMMatrixTranslation(-4.0f, 0.5f, -4.0f));
-
-	box2Ritem->ObjCBIndex = 1;
-
-	box2Ritem->Geo = mGeometries["shapeGeo"].get();
-
-	box2Ritem->PrimitiveType = D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
-
-	box2Ritem->IndexCount = box2Ritem->Geo->DrawArgs["box"].IndexCount;
-
-	box2Ritem->StartIndexLocation = box2Ritem->Geo->DrawArgs["box"].StartIndexLocation;
-
-	box2Ritem->BaseVertexLocation = box2Ritem->Geo->DrawArgs["box"].BaseVertexLocation;
-
-	mAllRitems.push_back(std::move(box2Ritem));
 
 
 
@@ -1464,7 +1486,7 @@ void ShapesApp::BuildRenderItems()
 
 
 	UINT objCBIndex = 3;
-
+	/*
 	for (int i = 0; i < 5; ++i)
 
 	{
@@ -1565,7 +1587,7 @@ void ShapesApp::BuildRenderItems()
 
 	}
 
-
+	*/
 
 	// All the render items are opaque.
 
