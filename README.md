@@ -1,1 +1,1 @@
-# Alexander Barnes & Justin Dela Cruz
+# Alexander Barnes
